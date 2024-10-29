@@ -32,9 +32,14 @@ def add_data_source():
     file_extension = os.path.splitext(file.filename)[1]
     print(f"File extension: {file_extension}")
     file_extension = file_extension.replace('.', '')
-    # 保存文件到指定路径
     if file:
-        file.save(f"./{file_extension}/{file.filename}")
+        file_path = (f"./{file_extension}/{file.filename}") 
+        file.save(file_path)
+        index_dir = "./index/" + file.filename
+        if file_extension == 'txt':
+            parser.create_index(index_dir, file_path)
+        elif file_extension == 'csv' or file_extension == 'xls' or file_extension == 'xlsx':
+            es.add_index(file_path)
         return "File uploaded successfully", 200
 
 if __name__ == '__main__':

@@ -25,11 +25,11 @@
       <el-upload ref="upload" class="custom-upload" :limit="1" :on-exceed="handleExceed" :auto-upload="false"
         action="http://localhost:3010/upload" :file-list="fileList" :on-error="handleError" :on-change="handleChange">
         <!-- <template #trigger> -->
-          <el-button type="primary" class="select-button">选择文件</el-button>
+        <el-button type="primary" class="select-button">选择文件</el-button>
         <!-- </template> -->
-          <el-button type="success" @click="submitUpload" class="upload-button">
-            上传
-          </el-button>
+        <el-button type="success" @click="submitUpload" class="upload-button">
+          上传
+        </el-button>
         <template #tip>
           <div class="upload-tip">
             一次只能上传一个文件
@@ -88,7 +88,7 @@ export default {
   methods: {
     async search() {
       try {
-        const response = await axios.get('http://localhost:3010/upload', {
+        const response = await axios.get('http://localhost:3010/search', {
           params: {
             searchStr: this.searchStr
           }

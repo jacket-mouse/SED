@@ -7,8 +7,9 @@ def excel_csv(excel_file):
     sheet_names = xls.sheet_names
     for sheet_name in sheet_names:
         df = pd.read_excel(excel_file, sheet_name=sheet_name)
-        df.to_csv(sheet_name, index=False, encoding='utf-8')
-        print(f"Excel 文件 '{excel_file}' 已成功转换为 CSV 文件 '{sheet_name}'")
+        output_csv_path = f"./csv/{sheet_name}.csv"
+        df.to_csv(output_csv_path, index=False, encoding='utf-8')
+        print(f"Excel 文件 '{excel_file}' 已成功转换为 CSV 文件 '{output_csv_path}'")
     return sheet_names
 
 def check_code(text):

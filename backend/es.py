@@ -57,7 +57,6 @@ def format_output_toString(response):
             result = ""
             print(Fore.GREEN + f"Document ID: {doc_id}")
             print(Fore.GREEN + f"Score: {score}")
-            print(Fore.GREEN + "Source Data:")
             for key, value in source.items():
                 result = result + (f"  {key}: {value}")
             results.append(result)
@@ -110,7 +109,6 @@ def csv_import(file_path):
             csv_reader = csv.reader(reader)
             headers = next(csv_reader)
             header_list = list(headers)
-            print(header_list)
             for line in csv_reader:
                 try:
                     # Create a document action for each row
@@ -196,5 +194,4 @@ def extract_text_from_file(file_path):
 
 
 if __name__ == '__main__':
-    # get_index_names()
-    raise NotImplementedError
+    get_index_names()

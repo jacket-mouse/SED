@@ -31,7 +31,7 @@ def create_index(index_dir, file_path):
             # 使用 tqdm 创建进度条
             with tqdm(total=total_lines, desc="Processing lines") as pbar:
                 for line_number, line in enumerate(file, start=1):
-                    line = preprocess.decode.check_code(line)
+                    line = preprocess.check_code(line)
                     seg_list = jieba.cut(line.strip())
                     segmented_text = " ".join(seg_list)
                     writer.add_document(line_number=str(line_number), content=segmented_text)
