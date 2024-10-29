@@ -7,7 +7,7 @@
           v-on:keyup.enter="search" />
         <!-- <el-button size="large" :icon="Search">搜索</el-button> -->
       </div>
-      <el-button class="upload-button1" type="primary" @click="upload">上传文件</el-button>
+      <el-button class="upload-button1" type="success" @click="upload" plain>上传文件</el-button>
 
     </div>
     <div class="data-list">
@@ -19,40 +19,76 @@
       </ul>
     </div>
   </div>
-  <el-drawer v-model="drawer" :with-header="false" class="custom-upload" title="文件上传" :direction="direction"
-    :before-close="handleClose">
-    <el-upload ref="upload" class="custom-upload" :limit="1" :on-exceed="handleExceed" :auto-upload="false">
-      <template #trigger>
-        <el-button type="primary">选择文件</el-button>
-      </template>
-      <el-button type="success" @click="submitUpload" class="upload-button">
-        上传
-      </el-button>
-      <template #tip>
-        <div class="upload-tip">
-          一次只能上传一个文件
-        </div>
-      </template>
-    </el-upload>
-  </el-drawer>
+  <div class="upload-container">
+    <el-drawer v-model="drawer" :with-header="false" class="custom-upload" title="文件上传" :direction="direction"
+      :before-close="handleClose">
+      <el-upload ref="upload" class="custom-upload" :limit="1" :on-exceed="handleExceed" :auto-upload="false"
+        action="http://localhost:3010/upload" :file-list="fileList" :on-error="handleError" :on-change="handleChange">
+        <!-- <template #trigger> -->
+          <el-button type="primary" class="select-button">选择文件</el-button>
+        <!-- </template> -->
+          <el-button type="success" @click="submitUpload" class="upload-button">
+            上传
+          </el-button>
+        <template #tip>
+          <div class="upload-tip">
+            一次只能上传一个文件
+          </div>
+        </template>
+
+      </el-upload>
+
+
+
+    </el-drawer>
+  </div>
+
 </template>
 
 <script>
 import axios from 'axios'
 import { ElMessage } from 'element-plus';
+import { handleError } from 'vue';
+import { ref } from 'vue';
 export default {
+  setup() {
+    const fileList = ref([])
+    const upload = ref(null)
+    const handleError = (err, file, fileList) => {
+      console.log('上传失败:', err)
+    }
+    const submitUpload = () => {
+      if (upload.value) {
+        upload.value.submit();
+      }
+    }
+    const handleChange = (file, fileList) => {
+      // 上传完成后清空文件列表
+      if (file.status === 'success' || file.status === 'fail') {
+        fileList.length = 0;
+      }
+    };
+    return {
+      fileList,
+      upload,
+      handleError,
+      submitUpload,
+      handleChange,
+    }
+
+  },
   data() {
     return {
       searchStr: "",
       results: [],
       drawer: false,
-      direction: "ttb"
+      direction: "ttb",
     };
   },
   methods: {
     async search() {
       try {
-        const response = await axios.get('http://localhost:3010/search', {
+        const response = await axios.get('http://localhost:3010/upload', {
           params: {
             searchStr: this.searchStr
           }
@@ -64,17 +100,15 @@ export default {
         ElMessage.error("搜索失败")
       }
     },
-    upload() {
-      this.drawer = true;
-      console.log("drawer is ", this.drawer)
-    },
     handleClose() {
       this.drawer = false;
+    },
+    upload() {
+      this.drawer = true;
     }
   }
 }
 </script>
-
 <style>
 #main {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -184,7 +218,6 @@ h1 {
 
 /* 提示文本的样式 */
 .upload-tip {
-  color: #ffffff;
   font-weight: bold;
   margin-top: 10px;
 }
@@ -192,5 +225,18 @@ h1 {
 .upload-button1 {
   margin-top: 25px;
   color: #ffffff;
+}
+
+.select-button {
+  margin-right: 10px;
+}
+
+.upload-button {
+  margin-right: 10px;
+}
+
+.upload-container {
+  display: flex;
+  align-items: center;
 }
 </style>

@@ -29,11 +29,12 @@ def add_data_source():
     if file.filename == '':
         return "文件名不能为空", 400
     print(f"File: {file.filename}")
-    file_extension = os.path.splittext(file.filename)[1]
+    file_extension = os.path.splitext(file.filename)[1]
     print(f"File extension: {file_extension}")
+    file_extension = file_extension.replace('.', '')
     # 保存文件到指定路径
     if file:
-        file.save(f"./index_data/{file.filename}")
+        file.save(f"./{file_extension}/{file.filename}")
         return "File uploaded successfully", 200
 
 if __name__ == '__main__':

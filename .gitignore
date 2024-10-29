@@ -2,7 +2,7 @@ backend/txt/
 backend/csv/
 backend/index/
 backend/__pycache__/
-
+backend/.venv
 
 frontend/node_modules/
 frontend/.vite
