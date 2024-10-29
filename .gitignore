@@ -1,5 +1,7 @@
 backend/txt/
 backend/csv/
+backend/xlsx/
+backend/xls/
 backend/index/
 backend/__pycache__/
 backend/.venv

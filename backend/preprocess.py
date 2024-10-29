@@ -1,6 +1,7 @@
 import pandas as pd
 import chardet
 import re
+import os
 
 def excel_csv(excel_file):
     xls = pd.ExcelFile(excel_file)
@@ -30,3 +31,7 @@ def remove_whitespace(s):
         part = re.sub(r'\s+', '', part, flags=re.UNICODE)
         new_parts.append(part)
     return new_parts
+
+def mk_dir(dir):
+    if not os.path.exists(dir):
+        os.mkdir(dir)

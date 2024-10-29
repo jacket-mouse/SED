@@ -5,6 +5,7 @@ from elasticsearch import Elasticsearch
 import parser
 import os
 import es
+import preprocess
 
 app = Flask(__name__)
 CORS(app)
@@ -32,6 +33,7 @@ def add_data_source():
     file_extension = os.path.splitext(file.filename)[1]
     print(f"File extension: {file_extension}")
     file_extension = file_extension.replace('.', '')
+    
     if file:
         file_path = (f"./{file_extension}/{file.filename}") 
         file.save(file_path)
@@ -43,6 +45,14 @@ def add_data_source():
         return "File uploaded successfully", 200
 
 if __name__ == '__main__':
+    xlsx_dir = "./xlsx"
+    xls_dir = "./xls"
+    txt_dir = "./txt"
+    csv_dir = "./csv"
+    preprocess.mk_dir(xls_dir)
+    preprocess.mk_dir(xlsx_dir)
+    preprocess.mk_dir(txt_dir)
+    preprocess.mk_dir(csv_dir)
     # base_file_path = "./index_data"
     # base_index_path = "./index"
     # txt_files = [ f for f in os.listdir(base_file_path) if f.endswith(".txt")]
