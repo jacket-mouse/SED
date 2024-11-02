@@ -1,23 +1,22 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import pymysql
-from elasticsearch import Elasticsearch
 import parser
 import os
 import es
 import preprocess
+import mysql
 
 app = Flask(__name__)
 CORS(app)
 
-# MySQL配置
-db = pymysql.connect(host='localhost', user='root', password='admin123', database='bike')
+
 
 @app.route('/search', methods=['GET'])
 def search():
     searchStr = request.args.get('searchStr', '')
     app.logger.info(f"Received search query: {searchStr}")
     results = parser.search(searchStr)
+    # print(results)
     return jsonify(results)
 
 @app.route('/upload', methods=['POST'])
@@ -42,6 +41,7 @@ def add_data_source():
             parser.create_index(index_dir, file_path)
         elif file_extension == 'csv' or file_extension == 'xls' or file_extension == 'xlsx':
             es.add_index(file_path)
+            mysql.db_import(file_path)
         return "File uploaded successfully", 200
 
 if __name__ == '__main__':

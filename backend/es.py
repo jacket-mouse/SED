@@ -38,9 +38,9 @@ def format_output(response):
             score = hit['_score']
             source = hit['_source']
             
-            print(Fore.GREEN + f"Document ID: {doc_id}")
-            print(Fore.GREEN + f"Score: {score}")
-            print(Fore.GREEN + "Source Data:")
+            # print(Fore.GREEN + f"Document ID: {doc_id}")
+            # print(Fore.GREEN + f"Score: {score}")
+            # print(Fore.GREEN + "Source Data:")
             for key, value in source.items():
                 print(Fore.GREEN + f"  {key}: {value}")
     else:
@@ -55,8 +55,8 @@ def format_output_toString(response):
             score = hit['_score']
             source = hit['_source']
             result = ""
-            print(Fore.GREEN + f"Document ID: {doc_id}")
-            print(Fore.GREEN + f"Score: {score}")
+            # print(Fore.GREEN + f"Document ID: {doc_id}")
+            # print(Fore.GREEN + f"Score: {score}")
             for key, value in source.items():
                 result = result + (f"  {key}: {value}")
             results.append(result)
@@ -89,7 +89,7 @@ def search(info):
             }
         }
         response = format_output_toString(es.search(index=name, body=query))
-        format_output(response)
+        # format_output(response)
         return response
      
 def excel_import(file_path):

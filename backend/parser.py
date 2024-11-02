@@ -1,4 +1,3 @@
-from tika import parser
 import jieba
 from whoosh.index import create_in, open_dir
 from whoosh.fields import Schema, TEXT, ID
@@ -7,7 +6,7 @@ import os
 from tqdm import tqdm
 import preprocess
 import es
-
+import mysql
 
 # 定义索引的 Schema
 def create_schema():
@@ -65,6 +64,9 @@ def search_index(index_dir, query_str):
 def search(searchStr):
     results = es.search(searchStr)
     txt_files = [ f for f in os.listdir("./txt") if f.endswith(".txt")]
+    print(mysql.search(searchStr))
+    for result in mysql.search(searchStr):
+        results.append(result)
     for file in txt_files:
         index_dir = "./index/" + file
         for result in search_index(index_dir, searchStr):
