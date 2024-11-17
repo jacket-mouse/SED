@@ -27,4 +27,4 @@ npm run dev
 
 ##  致谢
 
-- Leezj9671的[socialdb_vue_flask](https://github.com/Leezj9671/socialdb_vue_flask)项目。
+- Leezj9671的[socialdb_vue_flask](https://github.com/Leezj9671/socialdb_vue_flask)项目：我参考了其项目的前端设计。
