@@ -6,6 +6,25 @@
 
 ![page1](static/page1.png)
 
+## 使用
+
+确保你的电脑上有python和nodejs，若没有请先配置相应环境。
+
+首先，将仓库clone到本地文件夹，进入backend文件夹中运行下面命令启动后端：
+
+```shell
+pip install -r requirements.txt
+python app.py
+```
+然后打开frontend文件夹，运行下面命令，启动前端：
+
+```shell
+npm install
+npm run dev
+```
+
+启动起来项目是无法直接查询的，需要先导入文件。
+
 ##  致谢
 
 - Leezj9671的[socialdb_vue_flask](https://github.com/Leezj9671/socialdb_vue_flask)项目。
